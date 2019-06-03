@@ -11,7 +11,7 @@ class Post extends React.Component {
     user: {
       firstName: "",
       lastName: "",
-      thumbnail: ""
+      thumbnail: "././assets/profile.png"
     },
     post: {
       title: "",
@@ -48,10 +48,8 @@ class Post extends React.Component {
   
   loadPost() {
     if(this.props.didLoad && !this.state.populated){
-      // Somehow get the next line to wait for postId to not be empty
-      var postRef = firebase.firestore().collection('posts').doc(this.props.postId);
-      var getDoc = postRef.get()
-      .then(doc => {
+      firebase.firestore().collection('posts')
+      .doc(this.props.postId).get().then(doc => {
         if (!doc.exists) {
           console.log('No such document!');
         } else {
@@ -66,10 +64,8 @@ class Post extends React.Component {
           })
         }
       }).then(() => {
-        // console.log(this.state.post.userID);
-        var userRef = firebase.firestore().collection('users').doc(this.state.post.userID);
-        var getDoc = userRef.get()
-        .then(doc => {
+        firebase.firestore().collection('users')
+        .doc(this.state.post.userID).get().then(doc => {
           if (!doc.exists) {
             console.log('No such document!');
           } else {
@@ -80,7 +76,7 @@ class Post extends React.Component {
                           doc.data()['last name'][0].toUpperCase() +
                           doc.data()['last name'].slice(1),
                 firstName: doc.data()['first name'][0].toUpperCase() + 
-                           doc.data()['first name'].slice(1),
+                          doc.data()['first name'].slice(1),
                 lastName: doc.data()['last name'][0].toUpperCase() + 
                           doc.data()['last name'].slice(1),
                 thumbnail: doc.data().thumbnail
@@ -97,27 +93,13 @@ class Post extends React.Component {
       })
     }
   }
-  // THIS IS WHAT I USED TO POPULATE THE FIRESTORE DB
-  //   this.setState({
-  //     firstName: response.data.results[0].name.first,
-  //     lastName: response.data.results[0].name.last,
-  //     email: response.data.results[0].email,
-  //     picture: response.data.results[0].picture.large,
-  //     thumbnail: response.data.results[0].picture.thumbnail
-  //   })
-  // ).then(() => firebase.firestore().collection("users").add({
-  //   "first name": this.state.firstName,
-  //   "last name": this.state.lastName,
-  //   "email": this.state.email,
-  //   "picture": this.state.picture,
-  //   "thumbnail": this.state.thumbnail
-  // })
 
   render() {
     if(this.props.didLoad==true){
       this.loadPost();
       return(
-        <TouchableOpacity onPress={()=> Actions.postDetail({postId:this.props.postId, 
+        <TouchableOpacity style={styles.bottomPad}
+        onPress={()=> Actions.postDetail({postId:this.props.postId, 
                                                             userName:this.state.user.firstName,
                                                             thumbnail:this.state.user.thumbnail,
                                                             userID: this.state.post.userID})}>
@@ -149,7 +131,7 @@ class Post extends React.Component {
       )
     } else {
       return(
-        <ActivityIndicator/>
+        <ActivityIndicator />
       )
     }
   }
@@ -182,6 +164,9 @@ const styles = {
   headerStyle: {
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  bottomPad: {
+    marginBottom: 5
   }
 }
 

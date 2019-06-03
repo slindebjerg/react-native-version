@@ -11,9 +11,9 @@ const RouterComponent = () => {
   return (
     <Router>
       <Scene key="root" hideNavBar={true}>
+        <Scene key="login" component={LoginFlow} hideNavBar={true}/>
         <Scene key="home" component={HomeFeed} hideNavBar={true}/>
         <Scene key="createPost" component={CreatePost} hideNavBar={false} title='Create Post'/>
-        <Scene key="login" component={LoginFlow} hideNavBar={true}/>
         <Scene key="postDetail" component={PostDetailedView} hideNavBar={false} title='Post'/>
         <Scene key="chat" component={Chat} hideNavBar={false} title='Chat'/>
       </Scene>

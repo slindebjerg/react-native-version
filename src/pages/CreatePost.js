@@ -25,7 +25,6 @@ class CreatePost extends React.Component {
 
   pushPostToDb() {
     if(this.checkIfFieldsArePopulated() == true) {
-      //push to db
       firebase.firestore().collection('posts').add({
         give: this.state.give,
         title: this.state.title,

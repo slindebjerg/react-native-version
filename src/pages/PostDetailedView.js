@@ -1,17 +1,11 @@
 import React from 'react';
-import { View, Text, Image, TouchableOpacity } from 'react-native';
+import { View, Text, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
 import * as firebase from 'firebase';
 import 'firebase/firestore';
 import { Actions } from 'react-native-router-flux';
 
 class PostDetailedView extends React.Component {
-  state = {
-    // title: '',
-    // price: '',
-    // location: '',
-    // give: '',
-    // description: '',
-  }
+  
 
   getPost() {
     firebase.firestore().collection('posts').doc(this.props.postId).get()
@@ -25,6 +19,7 @@ class PostDetailedView extends React.Component {
           location: doc.data().location,
           give: doc.data().give,
           description: doc.data().description,
+          loaded: true,
         })
       }
     }).catch(err => {
@@ -37,23 +32,29 @@ class PostDetailedView extends React.Component {
   }
 
   render(){
-    return(
-      <View style={styles.container}>
-        <Text style={styles.headline}>{this.state.title}</Text>
-        <Text style={styles.textStyle}>{this.state.give}</Text>
-        <Text style={styles.textStyle}>{this.state.location}</Text>
-        <Text style={styles.textStyle}>{this.state.price}</Text>
-        <Text style={styles.description}>{this.state.description}</Text>
-        <TouchableOpacity style={styles.chatButton}
-                          onPress={() => Actions.chat({userID: this.props.userID})}>
-          <Image
-            source={{uri: this.props.thumbnail}}
-            style={styles.imageStyle}
-            />
-          <Text style={styles.chatText}>Contact {this.props.userName}</Text>
-        </TouchableOpacity>
-      </View>
-    )
+    if(this.state.loaded == true){
+      return(
+        <View style={styles.container}>
+          <Text style={styles.headline}>{this.state.title}</Text>
+          <Text style={styles.textStyle}>{this.state.give}</Text>
+          <Text style={styles.textStyle}>{this.state.location}</Text>
+          <Text style={styles.textStyle}>{this.state.price}</Text>
+          <Text style={styles.description}>{this.state.description}</Text>
+          <TouchableOpacity style={styles.chatButton}
+                            onPress={() => Actions.chat({userID: this.props.userID})}>
+            <Image
+              source={{uri: this.props.thumbnail}}
+              style={styles.imageStyle}
+              />
+            <Text style={styles.chatText}>Contact {this.props.userName}</Text>
+          </TouchableOpacity>
+        </View>
+      )
+    } else {
+      return(
+        <ActivityIndicator/>
+      )
+    }
   }
 }
 

@@ -40,7 +40,6 @@ class Chat extends React.Component {
               users: docTwo.data().users,
               messages: doc.data().messages
             });
-            console.log(this.state);
           }
         }).catch(err => {
           console.log('Error getting chat document', err);
@@ -76,7 +75,7 @@ class Chat extends React.Component {
         <View style={styles.inputField}>
           <TextInput placeholder='Write a message...'/>
           <TouchableOpacity style={styles.button}
-                            onPress={() => this.sendMessage}>
+                            onPress={() => this.sendMessage()}>
             <Text style={styles.buttonText}>SEND</Text>
           </TouchableOpacity>
         </View>

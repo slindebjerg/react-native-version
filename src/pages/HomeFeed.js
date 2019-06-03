@@ -6,7 +6,7 @@ import SearchBar from '../component/SearchBar';
 const HomeFeed = () => {
   return (
     <View style={styles.viewStyle}>
-      <SearchBar/>
+      <SearchBar />
       <PostList></PostList>
     </View>
   )
@@ -16,7 +16,7 @@ const styles = {
   viewStyle: {
     height: '100%',
     alignItems: 'center',
-  }
+  },
 }
 
 export default HomeFeed;
