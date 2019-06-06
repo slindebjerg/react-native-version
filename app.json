@@ -23,7 +23,11 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.simonlindebjerg.smartphoneappdevcourseapp"
+    },
+    "android": {
+      "package": "com.simonlindebjerg.smartphoneappdevcourseapp"
     },
     "description": "Exam project for Smartphone App Development course at Copenhagen Business School Spring 2019.",
     "githubUrl": "https://github.com/slindebjerg/react-native-version"
