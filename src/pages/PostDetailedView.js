@@ -5,7 +5,9 @@ import 'firebase/firestore';
 import { Actions } from 'react-native-router-flux';
 
 class PostDetailedView extends React.Component {
-  
+  state = {
+    loaded: false
+  }
 
   getPost() {
     firebase.firestore().collection('posts').doc(this.props.postId).get()
@@ -29,6 +31,7 @@ class PostDetailedView extends React.Component {
 
   componentDidMount(){
     this.getPost();
+    this.setState({loaded: true});
   }
 
   render(){

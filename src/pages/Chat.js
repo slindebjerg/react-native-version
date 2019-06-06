@@ -51,16 +51,17 @@ class Chat extends React.Component {
   }
 
   // Slightly modified boilerplate from for real time database update functionality.
-  // initRTListener() {
-  //   var doc = firebase.firestore().collection('chats').doc('SF');
+  // Line 56 shouldn't point to SF, but the proper document in chats collection.
+  initRTListener() {
+    var doc = firebase.firestore().collection('chats').doc('SF');
 
-  //   var observer = doc.onSnapshot(docSnapshot => {
-  //     console.log(`Received doc snapshot: ${docSnapshot}`);
-  //     return observer;
-  //   }, err => {
-  //     console.log(`Encountered error: ${err}`);
-  //   });
-  // }
+    var observer = doc.onSnapshot(docSnapshot => {
+      console.log(`Received doc snapshot: ${docSnapshot}`);
+      return observer;
+    }, err => {
+      console.log(`Encountered error: ${err}`);
+    });
+  }
 
   sendMessage() {
     console.log('sending...')
